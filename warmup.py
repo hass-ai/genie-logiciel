@@ -3,7 +3,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
+types_de_bruits = [
+    ('Bruit gaussien', 'Bruit Gaussien (Normal)', 'blue',
+     lambda n: generer_bruit_gaussien(n, moyenne=0.0, ecart_type=1.0)),
+    ('Bruit Student-t', 'Bruit Student-t (Queues lourdes)', 'orange',
+     lambda n: generer_bruit_student(n, degres_liberte=5, echelle=1.0)),
+    ('Bruit GARCH', 'Bruit GARCH (Volatilité variable)', 'green',
+     lambda n: generer_bruit_garch(n, omega=0.1, alpha=0.15, beta=0.8)),
+    ('Bruit AR(1)', 'Bruit AR(1) (Autocorrélé)', 'purple',
+     lambda n: generer_bruit_ar(n, phi=0.7, ecart_type=1.0)),
+]
 
+def remplir_axes(axes,longueur):
+    for i in range (0,4):
+        nom, titre, couleur, generer = types_de_bruits[i]
+        print(f"  [{i+1}/4] {nom}...")
+        axes[i].plot(generer(longueur), alpha=0.7, color=couleur)
+        axes[i].set_title(titre)
+        axes[i].set_xlabel('Temps')
+        axes[i].set_ylabel('Valeur')
+        axes[i].grid(True, alpha=0.3)
 
 def visualiser_types_de_bruit(longueur=1000, sauvegarder=True):
     """
@@ -15,43 +34,9 @@ def visualiser_types_de_bruit(longueur=1000, sauvegarder=True):
     
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     axes = axes.flatten()
-    
-    # 1. Gaussien
-    print("  [1/4] Bruit gaussien...")
-    bruit = generer_bruit_gaussien(longueur, moyenne=0.0, ecart_type=1.0)
-    axes[0].plot(bruit, alpha=0.7, color='blue')
-    axes[0].set_title('Bruit Gaussien (Normal)')
-    axes[0].set_xlabel('Temps')
-    axes[0].set_ylabel('Valeur')
-    axes[0].grid(True, alpha=0.3)
-    
-    # 2. Student-t
-    print("  [2/4] Bruit Student-t...")
-    bruit = generer_bruit_student(longueur, degres_liberte=5, echelle=1.0)
-    axes[1].plot(bruit, alpha=0.7, color='orange')
-    axes[1].set_title('Bruit Student-t (Queues lourdes)')
-    axes[1].set_xlabel('Temps')
-    axes[1].set_ylabel('Valeur')
-    axes[1].grid(True, alpha=0.3)
-    
-    # 3. GARCH
-    print("  [3/4] Bruit GARCH...")
-    bruit = generer_bruit_garch(longueur, omega=0.1, alpha=0.15, beta=0.8)
-    axes[2].plot(bruit, alpha=0.7, color='green')
-    axes[2].set_title('Bruit GARCH (Volatilité variable)')
-    axes[2].set_xlabel('Temps')
-    axes[2].set_ylabel('Valeur')
-    axes[2].grid(True, alpha=0.3)
-    
-    # 4. AR(1)
-    print("  [4/4] Bruit AR(1)...")
-    bruit = generer_bruit_ar(longueur, phi=0.7, ecart_type=1.0)
-    axes[3].plot(bruit, alpha=0.7, color='purple')
-    axes[3].set_title('Bruit AR(1) (Autocorrélé)')
-    axes[3].set_xlabel('Temps')
-    axes[3].set_ylabel('Valeur')
-    axes[3].grid(True, alpha=0.3)
-    
+
+    remplir_axes(axes,longueur)
+
     plt.suptitle('Comparaison des différents types de bruit', fontsize=16)
     plt.tight_layout()
     

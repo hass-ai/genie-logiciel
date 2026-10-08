@@ -8,6 +8,7 @@ const b = [1, 2][Math.random() < 0.5 ? 0 : 1]
 const c = [["foo"], ["bar"]][Math.random() < 0.5 ? 0 : 1]
 
 
+
 // général :
 // si Math.random() < 0,5, alors j'ai l'indice 0, sinon j'ai l'indice 1
 // table = [i,j] (avec i,j )
@@ -30,5 +31,4 @@ function choisir_element_aleatoire_dans_un_tableau_n_elements (tableau){
 console.log(choisir_element_aleatoire_dans_un_tableau_deux_elements([["foo"], ["bar"]]))
 
 const table = [1,2,3,4,5];
-
 console.log(choisir_element_aleatoire_dans_un_tableau_n_elements(table))
