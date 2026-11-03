@@ -11,5 +11,9 @@ class RobotTest(unittest.TestCase):
     def test_stop(self):
         self.assertEqual(parse_robot_command("0XABC"), ["stop"])
 
+    def test_plusieurs_commandes(self):
+        res = parse_robot_command("0X123,0X789,0XABC")
+        self.assertEqual(res, ["moveForward", "moveBackward", "stop"])
+
 if __name__ == "__main__":
     unittest.main()

@@ -5,4 +5,8 @@ COMMANDS = {
 }
 
 def parse_robot_command(command_flow):
-    return [COMMANDS[command_flow]]
+    liste = command_flow.split(",")
+    res = []
+    for code in liste:
+        res.append(COMMANDS[code])
+    return res
