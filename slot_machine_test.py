@@ -11,5 +11,8 @@ class SlotMachineTest(unittest.TestCase):
     def test_deux_derniers_identiques(self):
         self.assertEqual(slot_machine(5, ['%', '+', '+']), 10)
 
+    def test_trois_identiques(self):
+        self.assertEqual(slot_machine(10, ['+', '+', '+']), 50)
+
 if __name__ == "__main__":
     unittest.main()
