@@ -1,8 +1,4 @@
-COMMANDS = {
-    "0X123": "moveForward",
-    "0X789": "moveBackward",
-    "0XABC": "stop",
-}
+from liste_commands import LISTE_COMMANDS
 
 def parse_robot_command(command_flow):
     liste = command_flow.split(",")
@@ -11,7 +7,7 @@ def parse_robot_command(command_flow):
         if ":" in code:
             c,nombre = code.split(":")
             for i in range(int(nombre)):
-                res.append(COMMANDS[c])
+                res.append(LISTE_COMMANDS[c])
         else:
-            res.append(COMMANDS[code])
+            res.append(LISTE_COMMANDS[code])
     return res
