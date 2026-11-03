@@ -15,5 +15,9 @@ class RobotTest(unittest.TestCase):
         res = parse_robot_command("0X123,0X789,0XABC")
         self.assertEqual(res, ["moveForward", "moveBackward", "stop"])
 
+    def test_compression(self):
+        res = parse_robot_command("0X123:3,0XABC")
+        self.assertEqual(res, ["moveForward", "moveForward", "moveForward", "stop"])
+
 if __name__ == "__main__":
     unittest.main()
